@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge 22</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+        rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+        crossorigin="anonymous">
+    <link href="/fontawesome/css/all.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <form class="container-sm" style="background-color: rgb(175, 204, 129);" action="" method="get">
+        <input type="hidden" name="page" value="1">
+        <h1>
+            <p  style="text-align: center"> Data Mahasiswa</p>
+        </h1>
+
+        <h3>Filter Pencarian</h3>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputNama" class="col-sm-2 col-form-label">Nama</label>
+            <div class="col-sm-10">
+                <input type="String" class="form-control" placeholder="Masukkan Nama Mahasiswa" id="inputNama" name="inputNama" value="<%= query.inputNama %>">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="Umur" class="col-sm-2 col-form-label">Umur</label>
+            <div class="col-sm-10">
+                <input type="number" step="any" class="form-control" placeholder="Masukkan Umur" id="Umur" name="Umur" value="<%= query.Umur %>">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="IP" class="col-sm-2 col-form-label">IP</label>
+            <div class="col-sm-10">
+                <input type="number" step="0.01" value="<%= query.IP %>" class="form-control" placeholder="Masukkan IP" id="IP" name="IP">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="Tanggal" class="col-sm-2 col-form-label">Tanggal Masuk Kampus</label>
+            <div class="col">
+                <input type="date" class="form-control" id="Tanggal1" name="Tanggal1" value="<%= query.Tanggal1 %>">
+            </div>
+            <div class="col" style="text-align:center"> to </div>
+            <div class="col">
+                <input type="date" class="form-control" id="Tanggal2" name="Tanggal2" value="<%= query.Tanggal2 %>">
+
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="Status" class="col-sm-2 col-form-label">Status Lulus</label>
+            <div class="col-sm-10">
+                <select name="Status" id="Status">
+                    <option value="">--Masukkan Status--</option>
+                    <option value="true" <%= query.Status == 'true' ? 'selected' : '' %>>Lulus</option>
+                    <option value="false" <%= query.Status == 'false' ? 'selected' : '' %>>Tidak Lulus</option>
+                </select>
+            </div>
+        </div>
+        </fieldset>
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-danger" type="button" onclick="location.href = '/'">Reset</button>
+
+        <br><br>
+    </form>
+    <br><br>
+    <table class="table table-striped table-hover"  style="border:cadetblue;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; ">
+        <tr>
+            <th>
+                <i class="fa-solid fa-sort" >No</i>
+            </th>
+            <th>
+                <a href="<%= url.replace(`sortBy=${query.sortBy}`, `sortBy=_id`).replace(`sortMode=${query.sortMode}`,`sortMode=${query.sortMode == 'asc'? 'desc':'asc'}`) %>">
+
+                <i class="fa-solid fa-<%= query.sortBy == '_id' ? query.sortMode == 'asc'? 'sort-up' :'sort-down' : 'sort'%>"></i>NIM
+            </th>
+            <th>
+                <a href="<%= url.replace(`sortBy=${query.sortBy}`, `sortBy=Nama`).replace(`sortMode=${query.sortMode}`,`sortMode=${query.sortMode == 'asc'? 'desc':'asc'}`) %>">
+
+                <i class="fa-solid fa-<%= query.sortBy == 'Nama' ? query.sortMode == 'asc'? 'sort-up' :'sort-down' : 'sort'%>"></i>Nama
+            </th>
+            <th>
+                <a href="<%= url.replace(`sortBy=${query.sortBy}`, `sortBy=Umur`).replace(`sortMode=${query.sortMode}`,`sortMode=${query.sortMode == 'asc'? 'desc':'asc'}`) %>">
+
+                <i class="fa-solid fa-<%= query.sortBy == 'Umur' ? query.sortMode == 'asc'? 'sort-up' :'sort-down' : 'sort'%>"></i>Umur
+            </th>
+            <th>
+                <a href="<%= url.replace(`sortBy=${query.sortBy}`, `sortBy=IP`).replace(`sortMode=${query.sortMode}`,`sortMode=${query.sortMode == 'asc'? 'desc':'asc'}`) %>">
+
+                <i class="fa-solid fa-<%= query.sortBy == 'IP' ? query.sortMode == 'asc'? 'sort-up' :'sort-down' : 'sort'%>"></i>IP
+            </th>
+            <th>
+                <a href="<%= url.replace(`sortBy=${query.sortBy}`, `sortBy=date`).replace(`sortMode=${query.sortMode}`,`sortMode=${query.sortMode == 'asc'? 'desc':'asc'}`) %>">
+
+                <i class="fa-solid fa-<%= query.sortBy == 'date' ? query.sortMode == 'asc'? 'sort-up' :'sort-down' : 'sort'%>"></i>Tanggal Masuk Kampus
+            </th>
+            <th>
+                <a href="<%= url.replace(`sortBy=${query.sortBy}`, `sortBy=Status`).replace(`sortMode=${query.sortMode}`,`sortMode=${query.sortMode == 'asc'? 'desc':'asc'}`) %>">
+
+                <i class="fa-solid fa-<%= query.sortBy == 'Status' ? query.sortMode == 'asc'? 'sort-up' :'sort-down' : 'sort'%>"></i>Status
+            </th>
+            <th>
+                <i class="fa-solid ">Action</i>
+
+
+            </th>
+        </tr>
+        <% syntax.forEach((item,index)=>{ %>
+            <tr>
+                <td>
+                    <%= index+1+OFFSET %>
+                </td>
+                <td>
+                    <%= item._id %>
+                </td>
+                <td>
+                    <%= item.Nama %>
+                </td>
+                <td>
+                    <%= item.Umur %>
+                </td>
+                <td>
+                    <%= item.IP %>
+                </td>
+                <td>
+                    <%= item.date ? moment(item.date).format("MMMM Do YYYY"): 'kosong' %>
+                </td>
+                <td>
+                    <%= item.Status == true ? 'Lulus': 'Tidak Lulus' %>
+                </td>
+                <td>
+                    <button class="fa-solid fa-pencil"
+                        style="color :aquamarine;background-color: green;border-radius: 20%;"
+                        onclick="location.href = '/edit/<%= item._id %>'"></button>
+                    <button class="fa-solid fa-trash test" type="button" id="deleteBT" name="deleteBT"
+                        style="color:white;background-color: red;border-radius: 20%;"
+                        onclick="location.href = '/delete/<%= item._id %>?page=<%= page %>'"></button>
+
+                </td>
+            </tr>
+            <% }) %>
+    </table>
+    <button class="btn btn-primary btn-lg" type="button" style="position:absolute"
+        onclick="location.href = '/add'">add</button>
+    <br>
+    <br>
+    <br>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"> <a class="page-link" href="/?page=<%= page > 1 ? page-1 : 1%>">&laquo;</a></li>
+            <% for (let i=1 ; i <=pages; i++){ %>
+
+
+                <li class="page-item"> <a class="page-link <%= page == i ? 'active' : ''%>"
+                        href="<%= url.replace(`page=${page}`, `page=${i}`) %>">
+                        <%= i %>
+                    </a>
+                </li>
+
+                <% } %>
+                    <li class="page-item"> <a class="page-link"
+                            href="/?page=<%= page < pages? (page)+1: pages %>">&raquo;</a></li>
+        </ul>
+    </nav>
+</body>
+</html>
